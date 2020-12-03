@@ -4,7 +4,7 @@ slopes = list(f.readlines())
 
 slopes = [x.strip() for x in slopes]
 
-#day1
+#part 1
 def treesOnSlope(x, y):
     trees = 0
     currRow = 0
@@ -16,5 +16,5 @@ def treesOnSlope(x, y):
 
 print(treesOnSlope(3, 1))
 
-#day2
+#part 2
 print(treesOnSlope(1,1) * treesOnSlope(3,1) * treesOnSlope(5,1) * treesOnSlope(7,1) * treesOnSlope(1,2))
