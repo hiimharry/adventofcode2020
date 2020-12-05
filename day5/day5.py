@@ -4,7 +4,7 @@ f = open("input.txt", "r")
 
 seats = f.read().split("\n")
 
-#part 2
+#part 1
 def getSeatID(seat):
     id = 0
     upperBound = 127
