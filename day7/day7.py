@@ -1,3 +1,5 @@
+import time
+
 f = open("input.txt", "r")
 
 rules = f.read().split("\n")
@@ -25,7 +27,7 @@ for r in rules:
         count+=1
 print(count)
 """
-
+start_time = time.time()
 #try 2 (dicts)
 bagDict = {}
 for r in rules:
@@ -47,10 +49,11 @@ for b in bagDict:
     if canHoldGold(b):
         count+=1
 print(count)
+print("--- %s seconds ---" % (time.time() - start_time))
 
 
-#part 2
-def countBags(bag):
+#part 2 (super high run time)
+"""def countBags(bag):
     count = 0
     inside = bag[bag.index("contain")+8:].split(", ")
     inside = [i[:i.index("bag")-1] for i in inside]
@@ -63,5 +66,20 @@ def countBags(bag):
                     count = count + int(bags[0]) + int(bags[0]) * countBags(r)
 
 
+    return count"""
+#improved
+for r in rules:
+    r = r.replace(" bags", "").replace("s ", "").replace(".", "").replace(" bag", "")
+    bagDict[r[:r.index("contain")-1]] = r[r.index("contain")+8:].split(", ")
+
+start_time = time.time()
+def countBags(bag):
+    count = 0
+    for b in bagDict[bag]:
+        if b == "no other":
+            return 0
+        else:
+            count = count + int(b[0]) + int(b[0]) * countBags(b[2:])
     return count
-print(countBags("shiny gold bags contain 4 wavy green bags, 2 mirrored teal bags, 4 dark tomato bags, 2 faded beige bags."))
+print(countBags("shiny gold"))
+print("--- %s seconds ---" % (time.time() - start_time))
